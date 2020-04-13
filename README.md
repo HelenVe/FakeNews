@@ -4,7 +4,8 @@ I got the dataset(train.csv, test.csv, submit.csv) and the LSTM and GRU architec
 
 https://www.kaggle.com/jsvishnuj/fakenews-detection-using-lstm-neural-network/data
 
-I have a main folder called FakeNews with all the .py files
+I have a main folder called FakeNews with all the .py files.
+
 Also inside FakeNews, there is a folder named Kaggle where train.csv, test.csv, submit.csv are stored.
 
 
