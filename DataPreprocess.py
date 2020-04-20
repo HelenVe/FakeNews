@@ -30,7 +30,6 @@ train_data = train_data.drop(train_data['text'][train_data['length'] < 50].index
 capital_letters = [sum(1 for letter in title if letter.isupper()) / len(title) for title in train_data['title']]
 train_data['capital letters'] = capital_letters
 
-
 # dict with author as key, and array of labels as value
 # the negative here is that sometimes there are multiple authors and we havent seperated them
 # also, if we look at the Missing authors, we can see that we have many fake news there.
@@ -39,33 +38,28 @@ for i in train_data['author']:
     d_author_label[i] = [train_data['label'][j] for j in train_data[train_data['author'] == i].index]
 # print(d_author_label)
 
-
 # calculating the percentage of fake news per author and storing it in a new dict
 
 fake_percentage = []
 d_authors_percent = {}
 sum_of_articles_per_author = 0
+
 for key in d_author_label.keys():
-    print(key)
     fake_articles_per_author = 0
     # get list of labels for each author
     list_of_values = d_author_label.get(key)
     sum_of_articles_per_author = len(list_of_values)
 
-    print("Sum", sum_of_articles_per_author)
     for j in range(len(list_of_values)):
         # if the article is fake news
         if list_of_values[j] == 1:
             fake_articles_per_author = fake_articles_per_author + 1
     fake_percentage = (float(fake_articles_per_author) / float(sum_of_articles_per_author)) * 100
-    print(fake_percentage)
     d_authors_percent.update([(key, fake_percentage)])
 
 #
-
-
-print(min(train_data['length']), max(train_data['length']),
-      round(sum(train_data['length']) / len(train_data['length'])))
+# print(min(train_data['length']), max(train_data['length']),
+#       round(sum(train_data['length']) / len(train_data['length'])))
 max_features = 4500  # from the calculation above
 
 # Tokenizing the text - converting the words, letters into counts or numbers.
@@ -80,13 +74,13 @@ X = tokenizer.texts_to_sequences(texts=train_data['text'])
 X = pad_sequences(sequences=X, maxlen=max_features, padding='pre')
 y = train_data['label'].values
 
-
 # Preparing test dataset
 
 test_data = test_data.set_index('id', drop=True)
 test_data = test_data.fillna(' ')  # fill missing values
 print(test_data.shape)
-test_data.isnull().sum()
+
 tokenizer.fit_on_texts(texts=test_data['text'])
 test_text = tokenizer.texts_to_sequences(texts=test_data['text'])
 test_text = pad_sequences(sequences=test_text, maxlen=max_features, padding='pre')
+test_text.tofile("Kaggle/testtext.csv")
