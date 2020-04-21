@@ -1,6 +1,11 @@
 import pandas as pd
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfTransformer
+from sklearn.feature_extraction.text import CountVectorizer
+
+
 
 train = pd.read_csv('Kaggle/train.csv')
 test = pd.read_csv('Kaggle/test.csv')
@@ -9,7 +14,7 @@ test_data = test.copy()
 
 train_data = train_data.set_index('id', drop=True)
 print("Initial shape train:", train_data.shape)
-print("Initial shape test", test_data.shape)
+print("Initial shape test:", test_data.shape)
 
 # fill missing values of author, title
 train_data[['title', 'author']] = train_data[['title', 'author']].fillna(value='Missing')
@@ -57,7 +62,7 @@ for key in d_author_label.keys():
     fake_percentage = (float(fake_articles_per_author) / float(sum_of_articles_per_author)) * 100
     d_authors_percent.update([(key, fake_percentage)])
 
-#
+train_data.fillna('')
 # print(min(train_data['length']), max(train_data['length']),
 #       round(sum(train_data['length']) / len(train_data['length'])))
 max_features = 4500  # from the calculation above
@@ -72,7 +77,7 @@ X = tokenizer.texts_to_sequences(texts=train_data['text'])
 
 # now applying padding to make them even shaped.
 X = pad_sequences(sequences=X, maxlen=max_features, padding='pre')
-y = train_data['label'].values
+y = train_data['label'].values  # target
 
 # Preparing test dataset
 
@@ -84,3 +89,16 @@ tokenizer.fit_on_texts(texts=test_data['text'])
 test_text = tokenizer.texts_to_sequences(texts=test_data['text'])
 test_text = pad_sequences(sequences=test_text, maxlen=max_features, padding='pre')
 test_text.tofile("Kaggle/testtext.csv")
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=101)\
+
+# ------------------------------------------------------------------------------
+
+test_data['total'] = test_data['title']+' '+test_data['author']+test_data['text']
+train_data['total'] = train_data['title']+' '+train_data['author']+train_data['text']
+
+#tfidf
+transformer = TfidfTransformer(smooth_idf=False)
+count_vectorizer = CountVectorizer(ngram_range=(1, 2))
+counts = count_vectorizer.fit_transform(train_data['total'].values)
+test_counts = count_vectorizer.transform(test_data['total'].values)
+tfidf = transformer.fit_transform(counts)
