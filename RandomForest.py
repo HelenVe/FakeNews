@@ -7,7 +7,8 @@ import matplotlib.pyplot as plt
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.models import load_model
-from DataPreprocess import max_features, X, y, test_text, test
+from DataPreprocess import max_features, y, test_text, test, X_train, X_test, y_train, y_test
+from sklearn import metrics
 
 
 def create_model():
@@ -22,34 +23,34 @@ def create_model():
 
 
 def train():
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=101)
+
     if not os.path.exists("rf_model.h5"):
         rf_model = create_model()
-        rf_model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-        rf_model_fit = rf_model.fit(X_train, y_train, epochs=150, batch_size=64, validation_split=0.2)
-        rf_model.save('lstm_model.h5')
-        print("Saved RF model to disk")
+
     else:
         print("Loading and evaluating RF model")
         rf_model = load_model('rf_model.h5')
         rf_model.summary()
-        rf_model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
-        rf_model_fit = rf_model.fit(X_train, y_train, epochs=1)
-        # evaluate the model
-        scores = rf_model.evaluate(X, y, verbose=0)
-        print("%s: %.2f%%" % (rf_model.metrics_names[1], scores[1] * 100))
+
+    rf_model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+    rf_model_fit = rf_model.fit(X_train, y_train, epochs=150, batch_size=64, validation_split=0.2)
+    rf_model.save('rf_model.h5')
+    print("Saved RF model to disk")
+    train_acc = rf_model.evaluate(X_train, y_train, verbose=0)
+    test_acc = rf_model.evaluate(X_test, y_test, verbose=0)
+    print('Train:', train_acc, 'Test:', test_acc)
 
     # plot for loss
     plt.subplot(211)
     plt.title('Loss')
-    plt.plot(rf_model_fit.history['loss'], label="train")
-    plt.plot(rf_model_fit.history['val_loss'], label="test")
+    plt.plot(rf_model_fit.history['loss'], label="train loss")
+    plt.plot(rf_model_fit.history['val_loss'], label="test loss")
     plt.legend()
 
     plt.subplot(211)
     plt.title('Accuracy')
-    plt.plot(rf_model_fit.history['acc'], label="train")
-    plt.plot(rf_model_fit.history['val_acc'], label="test")
+    plt.plot(rf_model_fit.history['acc'], label="train accuracy")
+    plt.plot(rf_model_fit.history['val_acc'], label="test accuracy")
     plt.legend()
 
     plt.show()
@@ -58,11 +59,10 @@ def train():
 
 
 def predict():
-    # After the training, we use the json files to make predictions
 
     rf_model = load_model('rf_model.h5')
-    rf_prediction = rf_model.predict(test_text)
-    # round predictions
+    rf_prediction = rf_model.predict_classes(test_text)
+    rf_prediction = rf_prediction.flatten()
     return rf_prediction
 
 
