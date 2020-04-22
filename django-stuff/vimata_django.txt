@@ -1,0 +1,11 @@
+Βήματα για δημιουργία django project μέσα σε virtual environment για περιβάλλον Windows:
+
+Έστω ότι βρισκόμαστε αρχικά στον φάκελο "C:\\fakenews\"
+1) virtualenv env  : για να δημιουργηθεί το virtual environment 
+2) στον φάκελο "C:\\fakenews\env\Scripts\": activate : για να ενεργοποιηθεί το virtal environment
+3) pip instal django: για να εγκαταστήσουμε το django
+4) στον φάκελο "C:\\fakenews\env\": mkdir src : στον φάκελο src θα αναπτυχθεί όλο το django project 
+5) στον φάκελο "C:\\fakenews\env\src" django-admin startproject fakenews : για να δημιουργήσουμε το django project 'fakenews'
+6) στον φάκελο "C:\\fakenews\env\src\fakenews\fakenews\" python manage.py runserver : για να τρέξουμε τον σέρβερ του django
+
+--------------------------------------------------------

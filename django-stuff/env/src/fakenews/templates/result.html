@@ -1,0 +1,30 @@
+{% load static %}
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="author" content="colorlib.com">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,800" rel="stylesheet" />
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="s004">
+      <form>
+      <div class="home_btn">
+          <a href="/">Home</a>
+        </div>
+        <fieldset>
+      <div class="result-area">
+        {% if url404 %}
+          <h1>Fake news! / Real news!</h1>
+        {% else %}
+          <h1><u>{{url}}</u> does not exist!</h1> 
+          <p>Common mistakes: <i>http://</i> or <i>https://</i> missing</p>
+        {% endif %}
+      </div>
+    </fieldset>
+    </form>
+    </div>
+  </body>
+</html>
