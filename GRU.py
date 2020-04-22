@@ -33,11 +33,15 @@ def train():
         gru_model.summary()
 
     gru_model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
-    gru_model_fit = gru_model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=1)
+    gru_model_fit = gru_model.fit(X_train, y_train, validation_split=0.2, epochs=1)
+    gru_model.save('gru_model.h5')
+    print("Saved GRU model to disk")
+
     # evaluate the model
     train_acc = gru_model.evaluate(X_train, y_train, verbose=0, batch_size=128)
     test_acc = gru_model.evaluate(X_test, y_test, verbose=0, batch_size=128)
     print('Train: %.3f, Test: %.3f', train_acc, test_acc)
+
 
     # plot for loss
     plt.subplot(211)
@@ -54,6 +58,7 @@ def train():
 
     plt.show()
 
+    return
 
 def predict():
     # After the training, we use the json files to make prediction
