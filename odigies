@@ -1,0 +1,93 @@
+DO
+
+* Απο εδω μπορεις να κατεβασεις το αρχειο, και το βαζεις στον φακελο Kaggle.
+  Αυτο το αρχειο χρησιμοποιείται στο DataPreprocess.py για training.
+
+  https://www.kaggle.com/terenceliu4444/glove6b100dtxt
+
+Πηρα τον κώδικα για το μοντελο απο εδω:
+ https://github.com/matdekoning/FakeNewsClassifier/blob/master/FakeNewsClassifier.ipynb
+
+Για το  getText.py
+
+-- pip install BeautifulSoup
+-- pip install nltk
+
+
+Για να κατεβασεις το nltk corpus
+Σε ενα τερμιναλ: python3
+>> import nltk
+>> nltk.download()
+θα ανοιξει ενα παράθυρο από όπου μπορείς να κατεβάσεις , εγω κατεβασα το all
+Χρησιμοποιείται για να αφαιρέσουμε περιττες αγγλικες λέξεις απο το κείμενο.
+
+Για να τρέξεουμε το getText.py:
+
+Προς το παρόν πρέπει να αλλάζουμε την γραμμή 22.
+Παίρνει τον HTML κώδικα ανάλογα με τις παραμέτρους που θέτουμε.
+Σε κάθε σελίδα πρέπει να κάνουμε Inspect Element, να βρουμε το div class με το κείμενο.
+Κάποιες σελίδες έχουν το κείμενο σε class="entry-κατι" αν βοηθαει.
+
+Αυτη η ιστοσελιδα κανει fact checking.
+https://www.politifact.com
+Αν πας menu -> truth 'o meter εχει κατηγοριες άρθρων.
+Εχει διάφορα πράγματα, αν πας στο Blogger εκει εχει παραπομπη σε ιστοσελιδα.
+Οταν μπεις σε κάποιο αρθρο εχει λινκ για το οριτζιναλ αρθρο.
+Εχω βρει κάποια κ το πως αλλάζει ο κώδικας
+
+
+
+				FAKE NEWS
+
+url = 'https://www.breitbart.com/local/2015/06/14/l-a-times-op-ed-california-bear-flag-is-a-symbol-of-american-oppression/'
+entries = html.find_all('div', {'class':'entry-content'}) 
+--- Το προβλεπει reliable :(
+
+
+url='https://www.theboisetimes.com/post/joe-biden-mistakes-idaho-for-iowa-in-visit-to-boise-fundraiser?fbclid=IwAR2jj0hlFXQtMO8nufjaYvJTkE3OIX0RNmCj8I3DKBJKYBfdHpKuVH0aizE'
+entries = html.find_all('p', {'class':'XzvDs _208Ie tFDi5 blog-post-text-font blog-post-text-color _2QAo- _25MYV _6RI6N tFDi5'})  
+
+--- Το προβλεπει Fake :)
+
+
+url = 'https://www.3ccorp.net/2020/03/13/the-ny-times-exposes-real-reason-behind-coronavirus-hype-crash-the-market-to-harm-trumps-reelection-chances/?fbclid=IwAR2TvqXYGwyLzzKfgl2uoMUPXxPibcyZuNJs4tGLNBosEUOOHNe13m0jDOQ'
+entries = html.find_all('section', {'class':'entry'})
+--- Το προβλεπει reliable :(
+
+url='https://www.toine360.com/post/hair-weave-and-lace-front-made-in-china-may-contain-coronavirus'
+entries = html.find_all('p', {'class':'XzvDs _208Ie tFDi5 blog-post-text-font blog-post-text-color _2QAo- _25MYV _6RI6N tFDi5'})
+
+To provlepei fake :)
+
+url = 'https://wearechange.org/obama-ordered-cia-to-train-isis-jihadists-declassified-documents/?fbclid=IwAR20r8AwISfyoyudE7U7owT7Y-vLSwraN4cpkNzQeFo7pYfTuBiTMObHplQ'
+entries = html.find_all( {'class':'post-content entry-content', 'p':True})  
+To provlepei Reliablle :(
+
+
+				MOSTLY FAKE NEWS:
+
+url = "https://thepatriotjournal.com/swing-state-voting-lawsuit/?fbclid=IwAR1l0E4_Hl2_9DBPbr8YDiWv-OhHMh5J7WpDFF7wUUx7N9ZmTKTKcP-qPNI"
+entries = html.find_all('div', {'class':'body-text'})
+
+--- Το προβλεπει reliable :(
+
+url = "https://ktrh.iheart.com/featured/michael-berry/content/2020-03-06-pelosi-actually-slowed-coronavirus-funding-so-dems-could-campaign-on-it/?fbclid=IwAR2h45Roeye-DuRQ8Nx55BVOSpdfGucUW2IBgDQpME-z2uAvFlaX3QNcaLU"
+entries = html.find_all('article', {'class':'content-detail-container'})  
+
+--- Το προβλεπει reliable :(
+
+				MOSTLY TRUE NEWS:
+
+url = 'https://www.politicalflare.com/2020/02/busted-melania-trump-lied-under-oath-in-2013-about-graduating-from-college-with-a-bachelors-in-architecture/?fbclid=IwAR3xrqSa3d2hO5eIHo0bhWzAaKYH4lX2TghIsbBHxJEw3-t-2KpdLYtczxA'
+entries = html.find_all('div', {'class':'text'})
+
+--- Το προβλεπει reliable :)
+
+				TRUE NEWS
+
+
+
+url = 'https://www.nytimes.com/2017/01/19/sports/football/patriots-robert-kraft-nfl-roger-goodell.html'
+entries = html.find_all('p', {'class':'css-exrw3m evys1bk0'}) 
+Reliable :)
+
