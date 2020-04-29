@@ -16,12 +16,16 @@
         </div>
         <fieldset>
       <div class="result-area">
-        {% if url404 %}
-          <h1>Fake news! / Real news!</h1>
+          <h1>Title: {{title}}</h1>
+          <h4>Author: {{title}}</h4>
+          <p>{{article}}</p>
+
+        <br><br>
+        {% if fake %}
+          <h1>Fake news! ({{percentage}}%)</h1>
         {% else %}
-          <h1><u>{{url}}</u> does not exist!</h1> 
-          <p>Common mistakes: <i>http://</i> or <i>https://</i> missing</p>
-        {% endif %}
+          <h1>Real news! ({{percentage}}%)</h1>
+        {% endif %} 
       </div>
     </fieldset>
     </form>
