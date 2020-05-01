@@ -17,15 +17,27 @@
         <fieldset>
       <div class="result-area">
           <h1>Title: {{title}}</h1>
-          <h4>Author: {{title}}</h4>
-          <p>{{article}}</p>
-
-        <br><br>
-        {% if fake %}
-          <h1>Fake news! ({{percentage}}%)</h1>
+          <h4>Author: {% for name in author %} *{{name}}* {% endfor %}</h4>
+          
+        <br>
+        {% if percentage < 25 %}
+          <h1>Fake news! Liar Liar pants on fire! ({{percentage}}%)</h1>
+        {% elif percentage >= 25 and percentage <= 50 %}
+          <h1>Mostly Fake news! ({{percentage}}%)</h1>
+        {% elif percentage > 50 and percentage <= 75 %}  
+          <h1>Mostly Real news! ({{percentage}}%)</h1>
         {% else %}
           <h1>Real news! ({{percentage}}%)</h1>
+        {% endif %}
+
+        {%if fake_percent != null %}
+          <h4>The authors fake news percentage is {{fake_percent}}</h4>
         {% endif %} 
+
+        <br><h4>The text:</h4>
+
+        <p>{{article}}</p>
+
       </div>
     </fieldset>
     </form>
