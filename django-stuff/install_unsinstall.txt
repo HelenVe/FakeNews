@@ -1,0 +1,21 @@
+(Install) Οδηγίες εγκατάστασης της εφαρμογής:
+
+Η ιστοσελίδα είναι γραμμένη σε Django. Για να αναπαράγει κάποιος το χτίσιμο της ιστοσελίδας μας πρέπει να ακολουθήσει τα εξής βήματα:
+1)	Να δημιουργήσει ένα virtual environment όπου θα δημιουργήσει το Django project.
+Windows: $> virtualenv env
+2)	Να ενεργοποιήσει το virtual environment.
+Windows: $> env\Scripts\activate
+3)	Να σιγουρευτεί πως όλα τα πακέτα που χρειάζονται για την εφαρμογή μας είναι ήδη εγκατεστημένα στο virtual environment. Τα πακέτα που χρειάζονται είναι στο requirements.txt στο GitHub (https://github.com/HelenVe/FakeNews/blob/master/django-stuff/requirements.txt). Οπότε πρέπει να τρέξει την εντολή (με την προϋπόθεση πως το αρχείο requirements.txt βρίσκεται στο directory env:
+Windows: $> pip install -r requirements.txt 
+4)	Να δημιουργήσει έναν φάκελο src (μέσα στον env) όπου θα είναι το Django project:
+Windows: $> mkdir src; cd src
+5)	Στο directory src να φτιάξει το Django project:
+Windows: $> django-admin startproject fakenews
+6)	Να κατεβάσει ολόκληρο το project directory (fakenews) από το Github στον φάκελο src 
+7)	Να σηκώσει τον django server. Δηλαδή, στο directory env\src\fakenews:
+Windows: $> python manage.py runserver
+8)	Τέλος, για να τρέξει την εφαρμογή, πρέπει να πλοηγηθεί μέσω ενός browser στη διεύθυνση που αντιστοιχεί στον django server, δηλαδή στο localhost + django port: http://127.0.0.1:8000/
+
+-------------------------------------------------------------------------------
+(Uninstall) Οδηγίες απεγκατάστασης της εφαρμογής:
+Μιας και η εφαρμογή είναι χτισμένη πάνω σε virtual environment, η διαγραφή της από το σύστημά μας είναι ιδιαίτερα εύκολη: απλά διαγράφουμε τον φάκελο env. Με αυτόν τον τρόπο, διαγράφουμε ταυτόχρονα όλα τα αρχεία της εφαρμογής (που είναι στον υποφάκελο src) και όλα τα python packages που εγκαταστήσαμε με το pip (είναι όλα συγκεντρωμένα στον υποφάκελο Lib).
