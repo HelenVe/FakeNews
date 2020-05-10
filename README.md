@@ -4,8 +4,7 @@ Dataset(train.csv, test.csv)  from here:
 https://www.kaggle.com/jsvishnuj/fakenews-detection-using-lstm-neural-network/data
 
 I have a main folder called FakeNews with all the .py files.
-
-Also inside FakeNews, there is a folder named Kaggle where train.csv, test.csv are stored.
+Inside FakeNews, there is a folder named Kaggle where train.csv, test.csv are stored.
 
 Also train_data.csv and test_data.csv which are generated from DataPreprocess.py are stored there.
 
@@ -13,7 +12,7 @@ We use a GloVe embeddings file to train the network:
   https://www.kaggle.com/terenceliu4444/glove6b100dtxt
   
   
-The pretrained model.h5  can be downloaded from here: https://drive.google.com/open?id=1nx6tFo4o2ZhHF6qSds3wwnHJg6UvUv7T
+The pretrained model.h5  can also be downloaded from here: https://drive.google.com/open?id=1nx6tFo4o2ZhHF6qSds3wwnHJg6UvUv7T
 To use it in the Django app, place it in env/src/fakenews/static
 
   
