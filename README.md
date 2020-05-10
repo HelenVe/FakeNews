@@ -14,6 +14,7 @@ We use a GloVe embeddings file to train the network:
   
   
 The pretrained model.h5  can be downloaded from here: https://drive.google.com/open?id=1nx6tFo4o2ZhHF6qSds3wwnHJg6UvUv7T
+To use it in the Django app, place it in env/src/fakenews/static
 
   
 To train the network from scratch and generate model.h5 run --python model.py and type (1) in the terminal when asked.
