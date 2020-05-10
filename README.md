@@ -12,20 +12,24 @@ We use a GloVe embeddings file to train the network:
   https://www.kaggle.com/terenceliu4444/glove6b100dtxt
   
   
-The pretrained model.h5  can also be downloaded from here: https://drive.google.com/open?id=1nx6tFo4o2ZhHF6qSds3wwnHJg6UvUv7T
+(optional)The pretrained model.h5  can also be downloaded from here: https://drive.google.com/open?id=1nx6tFo4o2ZhHF6qSds3wwnHJg6UvUv7T
 To use it in the Django app, place it in env/src/fakenews/static
 
 
 To install and run the django app for Windows:
+Make sure you have pip and virtualenv installed.
+
 1) Create a virtual environment: virtualenv env
 2) To activate it run : env/Scripts: activate 
-3) To get the required packages run: pip install -r requirements.txt
+3) To get the required packages place requirements.txt inside env and run: pip install -r requirements.txt
 4) Create a source folder and go: mkdir src; cd src
-5) Download the project directory from here and put it inside the src folder
-6) To run the Django server: env\src\fakenews python manage.py runserver
-7) Open a broswer and go to: http://127.0.0.1:8000/
-8) You can now use the app!
+5) Start project: django-admin startproject fakenews
+6) Download the project directory (fakenews) from here and put it inside the src folder
+7) To run the Django server: env\src\fakenews python manage.py runserver
+8) Open a broswer and go to: http://127.0.0.1:8000/
+9) You can now use the app!
 
+To uninstall it just delete the env folder.
 
 To use only the neural network:
 1) Download DataPreprocess.py, model.py
